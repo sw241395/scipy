@@ -122,8 +122,7 @@ class TestOrthogonalProcrustes:
         B_orig = xp.asarray([[3, 2], [1, 0], [3, -2], [5, 0]], dtype=xp.float64)
         A, A_mu = _centered(A_orig, xp)
         B, B_mu = _centered(B_orig, xp)
-        R, s = orthogonal_procrustes(A, B)
-        scale = s / xp.linalg.matrix_norm(A)**2
+        R, scale = orthogonal_procrustes(A, B)
         B_approx = scale * A @ R + B_mu
         xp_assert_close(B_approx, B_orig, atol=1e-8)
 
@@ -133,8 +132,7 @@ class TestOrthogonalProcrustes:
         B_orig = xp.asarray([[3, 40], [1, 0], [3, -40], [5, 0]], dtype=xp.float64)
         A, A_mu = _centered(A_orig, xp)
         B, B_mu = _centered(B_orig, xp)
-        R, s = orthogonal_procrustes(A, B)
-        scale = s / xp.linalg.matrix_norm(A)**2
+        R, scale = orthogonal_procrustes(A, B)
         B_approx = scale * A @ R + B_mu
         expected = xp.asarray([[3, 21], [-18, 0], [3, -21], [24, 0]], dtype=xp.float64)
         xp_assert_close(B_approx, expected, atol=1e-8)
@@ -143,8 +141,7 @@ class TestOrthogonalProcrustes:
         AB_disparity = (xp.linalg.matrix_norm(B_approx - B_orig)
                         / xp.linalg.matrix_norm(B))**2
         xp_assert_close(AB_disparity, expected_disparity)
-        R, s = orthogonal_procrustes(B, A)
-        scale = s / xp.linalg.matrix_norm(B)**2
+        R, scale = orthogonal_procrustes(B, A)
         A_approx = scale * B @ R + A_mu
         BA_disparity = (xp.linalg.matrix_norm(A_approx - A_orig)
                         / xp.linalg.matrix_norm(A))**2
@@ -175,8 +172,7 @@ class TestOrthogonalProcrustes:
                                      [0.40089186, -0.40089186]], dtype=xp.float64)
         A, A_mu = _centered(A_orig, xp)
         B, B_mu = _centered(B_orig, xp)
-        R, s = orthogonal_procrustes(A, B)
-        scale = s / xp.linalg.matrix_norm(A)**2
+        R, scale = orthogonal_procrustes(A, B)
         B_approx = scale * A @ R + B_mu
         xp_assert_close(B_approx, B_orig)
         xp_assert_close(B / xp.linalg.matrix_norm(B), B_standardized)

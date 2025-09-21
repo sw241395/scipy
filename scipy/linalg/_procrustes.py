@@ -115,5 +115,6 @@ def orthogonal_procrustes(A, B, check_finite=True):
     else:
         u, w, vt = xp.linalg.svd((B.T @ xp.conj(A)).T)
     R = u @ vt
-    scale = xp.sum(w)
+    scale = xp.sum(w) / xp.linalg.matrix_norm(A)**2
+
     return R, scale
